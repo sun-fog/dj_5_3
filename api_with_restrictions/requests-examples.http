@@ -1,0 +1,80 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api
+
+# получение объявлений
+GET {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token 1c34d8cda14706ba492b73c165d235937e7ce55a
+
+###
+
+# создание объявления администратором
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token 1c34d8cda14706ba492b73c165d235937e7ce55a
+
+{
+  "title": "Шкаф IKEA",
+  "description": "Срочно"
+}
+
+###
+
+# создание объявления пользователем
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token 91e8241484b1c580573d28015f2ecfe7af046cd4
+
+{
+  "title": "Фартук IKEA",
+  "description": "Классный"
+}
+
+###
+
+# попытка поменять администратором объявление пользователя
+PATCH {{baseUrl}}/advertisements/2/
+Content-Type: application/json
+Authorization: Token 1c34d8cda14706ba492b73c165d235937e7ce55a
+
+{
+  "status": "CLOSED"
+}
+
+###
+
+# попытка поменять объявление пользователем объявление администратора
+PATCH {{baseUrl}}/advertisements/3/
+Content-Type: application/json
+Authorization: Token 91e8241484b1c580573d28015f2ecfe7af046cd4
+
+{
+  "status": "CLOSED"
+}
+
+###
+
+# попытка пользователя удалить своё объявление
+DELETE {{baseUrl}}/advertisements/5/
+Content-Type: application/json
+Authorization: Token 91e8241484b1c580573d28015f2ecfe7af046cd4
+
+###
+
+# попытка администратора удалить чужое объявление
+DELETE {{baseUrl}}/advertisements/6/
+Content-Type: application/json
+Authorization: Token 1c34d8cda14706ba492b73c165d235937e7ce55a
+
+###
+
+# фильтрация по создателю
+GET {{baseUrl}}/advertisements/?creator=2
+Content-Type: application/json
+
+###
+
+# фильтрация по дате
+GET {{baseUrl}}/advertisements/?created_at_before=2026-02-12
+Content-Type: application/json
